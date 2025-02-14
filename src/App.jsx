@@ -7,10 +7,12 @@ import Results from "./Components/Results.jsx";
 function App() {
 	const [userInput, setUserInput] = useState({
 		initialInvestment: 10000,
-		annualInvestment: 1000,
-		expectedReturn: 10,
-		duration: "7",
+		annualInvestment: 1200,
+		expectedReturn: 6,
+		duration: "10",
 	});
+
+	const isValidInput = userInput.duration >= 1;
 
 	function handleInputChange(inputIdentifer, newValue) {
 		setUserInput((prevState) => ({
@@ -23,7 +25,10 @@ function App() {
 		<>
 			<Header />
 			<UserInput userInput={userInput} onChangeInput={handleInputChange} />
-			<Results />
+			{!isValidInput && (
+				<p className="center">Please enter a duration greater than Zero</p>
+			)}
+			{isValidInput && <Results input={userInput} />}
 		</>
 	);
 }
